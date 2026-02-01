@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Valentine? ❤️</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #ffe6e6; /* Soft pink background */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden; /* Prevents scrollbars if the button moves off-screen */
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        h1 { color: #d63384; margin-bottom: 2rem; }
+        .buttons { display: flex; justify-content: center; gap: 20px; position: relative; }
+        button {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        #yesBtn { background-color: #ff4d6d; color: white; }
+        #noBtn {
+            background-color: #adb5bd;
+            color: white;
+            position: absolute; /* Allows it to move freely */
+            left: 110px; /* Initial position next to Yes */
+        }
+        .success-message { display: none; }
+        .success-message h1 { font-size: 3rem; animation: heartbeat 1s infinite; }
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="mainContainer">
+        <h1 id="question">Will you be my Valentine? 🌹</h1>
+        <div class="buttons">
+            <button id="yesBtn">Yes!</button>
+            <button id="noBtn">No</button>
+        </div>
+    </div>
+
+    <div class="success-message" id="successScreen">
+        <h1>YAY! ❤️ See you then! 💖</h1>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        const mainContainer = document.getElementById('mainContainer');
+        const successScreen = document.getElementById('successScreen');
+
+        // Logic to make the "No" button run away
+        noBtn.addEventListener('mouseover', () => {
+            // Get random coordinates within the window
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+
+            // Optional: Make the Yes button grow every time they try to hit No!
+            let currentSize = parseFloat(window.getComputedStyle(yesBtn).fontSize);
+            yesBtn.style.fontSize = (currentSize * 1.1) + 'px';
+            yesBtn.style.padding = (parseFloat(window.getComputedStyle(yesBtn).padding) * 1.1) + 'px';
+        });
+
+        // Logic for when they finally click "Yes"
+        yesBtn.addEventListener('click', () => {
+            mainContainer.style.display = 'none';
+            successScreen.style.display = 'block';
+            document.body.style.backgroundColor = '#ff4d6d';
+        });
+    </script>
+</body>
+</html>
