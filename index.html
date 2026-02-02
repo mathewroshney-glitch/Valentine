@@ -3,102 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Will You Be My Valentine? ❤️</title>
+    <title>A Special Surprise ❤️</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary-pink: #ff4d6d;
-            --soft-pink: #ffe6e6;
-        }
-
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: linear-gradient(135deg, #fff0f3 0%, #ffe6e6 100%);
-            font-family: 'Poppins', sans-serif;
-            overflow: hidden;
-            transition: background-color 0.8s ease;
-        }
-
-        .card {
-            background: white;
-            padding: 2.5rem;
-            border-radius: 30px;
-            box-shadow: 0 15px 35px rgba(255, 77, 109, 0.2);
-            text-align: center;
-            max-width: 400px;
-            width: 85%;
-            z-index: 10;
-        }
-
-        #gif-container img {
-            width: 200px;
-            border-radius: 15px;
-            margin-bottom: 1rem;
-        }
-
-        h1 {
-            font-family: 'Dancing Script', cursive;
-            color: var(--primary-pink);
-            font-size: 2.2rem;
-            margin: 10px 0 25px;
-        }
-
-        .btn-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
-            min-height: 70px;
-        }
-
-        button {
-            padding: 12px 28px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        #yesBtn {
-            background-color: var(--primary-pink);
-            color: white;
-            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.3);
-        }
-
-        #noBtn {
-            background-color: #949494;
-            color: white;
-            position: absolute;
-        }
-
-        /* Success screen layout */
-        #success-screen {
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        #success-screen h1 {
-            font-size: 3rem;
-            color: white;
-            margin-top: 20px;
-        }
+        :root { --pink: #ff4d6d; --bg: #ffe6e6; }
+        body { margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; background: var(--bg); font-family: 'Poppins', sans-serif; overflow: hidden; transition: 0.5s; }
+        .card { background: white; padding: 3rem; border-radius: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; width: 350px; z-index: 10; }
+        .gif { width: 200px; border-radius: 15px; margin-bottom: 20px; }
+        h1 { font-family: 'Dancing Script', cursive; color: var(--pink); font-size: 2.5rem; margin-bottom: 30px; }
+        .btn-container { display: flex; justify-content: center; align-items: center; gap: 20px; position: relative; min-height: 60px; }
+        button { padding: 12px 25px; font-size: 1.1rem; border-radius: 50px; border: none; cursor: pointer; transition: 0.3s; font-weight: 600; }
+        #yesBtn { background: var(--pink); color: white; }
+        #noBtn { background: #949494; color: white; position: absolute; left: 55%; }
+        #success-screen { display: none; text-align: center; }
+        #success-screen h1 { font-size: 3.5rem; color: white; }
     </style>
 </head>
 <body>
 
     <div id="main-card" class="card">
-        <div id="gif-container">
-            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueWpscm9ueXpueWpscm9ueXpueWpscm9ueXpueWpscm9ueSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zy/c7QVD6YfU39XG/giphy.gif" alt="Asking GIF">
-        </div>
+        <img class="gif" src="start.gif.gif" alt="Asking">
         <h1>Will you be my Valentine?</h1>
         <div class="btn-container">
             <button id="yesBtn">Yes!</button>
@@ -107,12 +31,12 @@
     </div>
 
     <div id="success-screen">
-        <img style="width: 280px; border-radius: 20px;" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbGNid3B0Z3RneXFtcHpxZ3RneXFtcHpxZ3RneXFtcHpxJmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/m8f0uU3j7P5uP+81/giphy.gif" alt="Success GIF">
-        <h1>Maahi Ve! ❤️</h1>
+        <img class="gif" style="width: 300px;" src="success.gif.gif" alt="Success">
+        <h1>Good Choice! (Not like you had one 😉)</h1>
     </div>
 
     <audio id="bgMusic" loop>
-        <source src="music.mp3" type="audio/mpeg">
+        <source src="music.mp3.mp3" type="audio/mpeg">
     </audio>
 
     <script>
@@ -122,29 +46,22 @@
         const successScreen = document.getElementById('success-screen');
         const music = document.getElementById('bgMusic');
 
-        // Initial position for No button
-        noBtn.style.left = '55%';
-
         noBtn.addEventListener('mouseover', () => {
             const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
             const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
-            
             noBtn.style.position = 'fixed';
             noBtn.style.left = x + 'px';
             noBtn.style.top = y + 'px';
 
-            // Make Yes button grow
             let currentScale = parseFloat(yesBtn.style.transform.replace('scale(', '').replace(')', '')) || 1;
             yesBtn.style.transform = `scale(${currentScale + 0.15})`;
         });
 
         yesBtn.addEventListener('click', () => {
             mainCard.style.display = 'none';
-            successScreen.style.display = 'flex';
+            successScreen.style.display = 'block';
             document.body.style.backgroundColor = '#ff4d6d';
-            
-            // This plays the music.mp3 file you will upload
-            music.play().catch(e => console.log("Audio play failed:", e));
+            music.play();
         });
     </script>
 </body>
