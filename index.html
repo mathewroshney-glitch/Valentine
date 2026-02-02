@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Special Surprise for You ❤️</title>
+    <title>Will You Be My Valentine? ❤️</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary-pink: #ff4d6d;
             --soft-pink: #ffe6e6;
-            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
 
         body {
@@ -25,86 +24,81 @@
             transition: background-color 0.8s ease;
         }
 
-        /* The Professional Card */
         .card {
             background: white;
-            padding: 3rem;
+            padding: 2.5rem;
             border-radius: 30px;
-            box-shadow: var(--shadow);
+            box-shadow: 0 15px 35px rgba(255, 77, 109, 0.2);
             text-align: center;
             max-width: 400px;
-            width: 90%;
+            width: 85%;
             z-index: 10;
         }
 
-        .main-gif {
-            width: 180px;
-            margin-bottom: 20px;
-            border-radius: 20px;
+        #gif-container img {
+            width: 200px;
+            border-radius: 15px;
+            margin-bottom: 1rem;
         }
 
         h1 {
             font-family: 'Dancing Script', cursive;
             color: var(--primary-pink);
-            font-size: 2.5rem;
-            margin-bottom: 30px;
+            font-size: 2.2rem;
+            margin: 10px 0 25px;
         }
 
         .btn-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 20px;
-            position: relative;
-            min-height: 60px;
+            gap: 15px;
+            min-height: 70px;
         }
 
         button {
-            padding: 12px 30px;
+            padding: 12px 28px;
             font-size: 1.1rem;
             font-weight: 600;
             border: none;
             border-radius: 50px;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.2s ease;
         }
 
         #yesBtn {
             background-color: var(--primary-pink);
             color: white;
-            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4);
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.3);
         }
 
         #noBtn {
-            background-color: #6c757d;
+            background-color: #949494;
             color: white;
             position: absolute;
-            left: 55%; /* Start slightly to the right */
         }
 
-        /* Success Screen */
+        /* Success screen layout */
         #success-screen {
             display: none;
-            text-align: center;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
         #success-screen h1 {
-            font-size: 3.5rem;
+            font-size: 3rem;
             color: white;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.1);
-            animation: bounce 1s infinite alternate;
-        }
-
-        @keyframes bounce {
-            from { transform: translateY(0); }
-            to { transform: translateY(-10px); }
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
 
     <div id="main-card" class="card">
-        <img class="main-gif" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbGNid3B0Z3RneXFtcHpxZ3RneXFtcHpxZ3RneXFtcHpxJmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/c7QVD6YfU39XG/giphy.gif" alt="Cute bear">
+        <div id="gif-container">
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueWpscm9ueXpueWpscm9ueXpueWpscm9ueXpueWpscm9ueSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zy/c7QVD6YfU39XG/giphy.gif" alt="Asking GIF">
+        </div>
         <h1>Will you be my Valentine?</h1>
         <div class="btn-container">
             <button id="yesBtn">Yes!</button>
@@ -113,9 +107,8 @@
     </div>
 
     <div id="success-screen">
-        <img style="width: 250px; border-radius: 20px;" src="http://googleusercontent.com/image_collection/image_retrieval/8132697574463234574_0" alt="Cute cat celebration">
+        <img style="width: 280px; border-radius: 20px;" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbGNid3B0Z3RneXFtcHpxZ3RneXFtcHpxZ3RneXFtcHpxJmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/m8f0uU3j7P5uP+81/giphy.gif" alt="Success GIF">
         <h1>Maahi Ve! ❤️</h1>
-        <p style="color: white; font-weight: bold; font-size: 1.2rem;">I knew you'd say yes!</p>
     </div>
 
     <audio id="bgMusic" loop>
@@ -129,9 +122,10 @@
         const successScreen = document.getElementById('success-screen');
         const music = document.getElementById('bgMusic');
 
-        // Logic to make "No" move and "Yes" grow
+        // Initial position for No button
+        noBtn.style.left = '55%';
+
         noBtn.addEventListener('mouseover', () => {
-            // Move No Button
             const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
             const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
             
@@ -139,19 +133,18 @@
             noBtn.style.left = x + 'px';
             noBtn.style.top = y + 'px';
 
-            // Make Yes button grow bigger every attempt
+            // Make Yes button grow
             let currentScale = parseFloat(yesBtn.style.transform.replace('scale(', '').replace(')', '')) || 1;
-            yesBtn.style.transform = `scale(${currentScale + 0.2})`;
+            yesBtn.style.transform = `scale(${currentScale + 0.15})`;
         });
 
-        // Logic for when they click "Yes"
         yesBtn.addEventListener('click', () => {
             mainCard.style.display = 'none';
-            successScreen.style.display = 'block';
+            successScreen.style.display = 'flex';
             document.body.style.backgroundColor = '#ff4d6d';
             
-            // Starts the music
-            music.play();
+            // This plays the music.mp3 file you will upload
+            music.play().catch(e => console.log("Audio play failed:", e));
         });
     </script>
 </body>
